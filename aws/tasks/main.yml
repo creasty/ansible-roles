@@ -1,0 +1,14 @@
+- name: create aws directory
+  file:
+    path:  '{{ user_path }}/.aws'
+    owner: '{{ user_name }}'
+    group: '{{ user_name }}'
+    state: directory
+
+- name: copy aws config file
+  template:
+    src:   config
+    dest:  '{{ user_path }}/.aws/config'
+    owner: '{{ user_name }}'
+    group: '{{ user_name }}'
+

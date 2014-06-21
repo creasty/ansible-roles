@@ -1,0 +1,32 @@
+- name: download redis
+  command: wget http://download.redis.io/releases/redis-2.8.3.tar.gz
+
+- name: extract redis
+  command: tar xvzf redis-2.8.3.tar.gz
+
+- name: compile redis
+  command: make chdir=redis-2.8.3
+
+- name: copy redis bin
+  command: cp -f redis-2.8.3/src/{{ item }} /usr/local/bin/
+  with_items:
+    - redis-server
+    - redis-cli
+    - redis-benchmark
+    - redis-check-aof
+    - redis-check-dump
+
+- name: copy redis.conf
+  template:
+    src:  redis.conf
+    dest: /etc/redis.conf
+
+- name: copy redis-server.conf
+  template:
+    src:  redis-server.conf
+    dest: /etc/init/redis-server.conf
+
+- name: start redis
+  command: start redis-server
+  ignore_errors: yes
+

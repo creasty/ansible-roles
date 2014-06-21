@@ -1,0 +1,13 @@
+- name: copy logrotate.conf
+  template:
+    src:  logrotate.conf
+    dest: /etc/logrotate.conf
+
+- name: copy logrotate.d
+  template:
+    src:  '{{ item }}'
+    dest: '/etc/logrotate.d/{{ item }}'
+  with_items:
+    - nginx
+    - rails_shared
+

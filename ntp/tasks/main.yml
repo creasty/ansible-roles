@@ -1,0 +1,24 @@
+- name: install ntp package
+  yum:
+    name:  ntp
+    state: present
+
+- name: copy ntp.conf
+  template:
+    src:  ntp.conf
+    dest: /etc/ntp.conf
+
+- name: copy timezone
+  template:
+    src:  timezone
+    dest: /etc/timezone
+
+- name: set localtime
+  command: cp -f /usr/share/zoneinfo/Japan /etc/localtime
+
+- name: start ntp service
+  service:
+    name:    ntpd
+    enabled: yes
+    state:   restarted
+

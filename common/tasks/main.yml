@@ -1,0 +1,19 @@
+- name: update all yum packages
+  yum: name=* state=latest
+
+- name: install yum packages
+  yum:
+    pkg:   '{{ item }}'
+    state: present
+  with_items:
+    - gcc
+    - gcc-c++
+    - make
+    - zlib-devel
+    - curl-devel
+    - git
+    - vim
+    - wget
+    - python
+    - python-devel
+

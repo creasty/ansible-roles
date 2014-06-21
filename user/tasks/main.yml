@@ -1,0 +1,24 @@
+- name: create an user
+  user:
+    name:  '{{ user_name }}'
+    shell: /bin/bash
+
+- name: setup authorized_key
+  authorized_key:
+    user: '{{ user_name }}'
+    key:  '{{ lookup("file", user_login_key) }}'
+
+- name: copy id_rsa
+  copy:
+    src:  '{{ user_id_sec_key }}'
+    dest: '{{ user_path }}/.ssh/id_rsa'
+    mode: '0600'
+
+- name: copy the user's sudoers
+  template:
+    src:   sudoer
+    dest:  '/etc/sudoers.d/{{ user_name }}'
+    owner: root
+    group: root
+    mode:  0440
+

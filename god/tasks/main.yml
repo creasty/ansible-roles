@@ -1,0 +1,25 @@
+- name: install god
+  command: bash -lc 'gem install god --no-ri --no-rdoc'
+
+- name: create directory
+  command: mkdir -p /etc/god/config /etc/god/contacts
+
+- name: copy config.god
+  template:
+    src:  config.god
+    dest: /etc/god/config.god
+
+- name: copy email.rb
+  template:
+    src:  email.rb
+    dest: /etc/god/contacts/email.rb
+
+- name: copy delayed_job.god
+  template:
+    src:  delayed_job.god
+    dest: /etc/god/config/delayed_job.god
+
+- name: start god
+  command:       god -c /etc/god/config.god
+  ignore_errors: true
+

@@ -1,0 +1,11 @@
+- name: install rails dependent packages
+  yum:
+    pkg:   '{{ item }}'
+    state: present
+  with_items:
+    - http://repo.mysql.com/mysql-community-release-el6-4.noarch.rpm
+    - mysql-devel
+    - mysql-community-server
+    - ImageMagick
+    - ImageMagick-devel
+

@@ -1,0 +1,73 @@
+- name: install mysql packages
+  yum:
+    name:  '{{ item }}'
+    state: present
+  with_items:
+    - http://repo.mysql.com/mysql-community-release-el6-4.noarch.rpm
+    - mysql-devel
+    - mysql-community-server
+    - libselinux-python
+
+- name: install mysql python module (via yum)
+  when: not ansible_distribution == 'Amazon'
+  yum:
+    name:  MySQL-python
+    state: present
+
+- name: install mysql python module (from source)
+  when: ansible_distribution == 'Amazon' # Amazon Linux AMI
+  command: 'bash -lc "{{ item }}"'
+  with_items:
+    - 'cd /usr/tmp && wget http://download.sourceforge.net/sourceforge/mysql-python/MySQL-python-1.2.3.tar.gz'
+    - 'cd /usr/tmp && tar xvzf /usr/tmp/MySQL-python-1.2.3.tar.gz'
+    - 'cd /usr/tmp/MySQL-python-1.2.3 && python setup.py build'
+    - 'cd /usr/tmp/MySQL-python-1.2.3 && python setup.py install'
+    - 'rm -rf /usr/tmp/MySQL-python*'
+
+- name: copy my.cnf
+  template:
+    src:  my.cnf
+    dest: /etc/my.cnf
+
+- name: delete ib_logfiles
+  shell: rm -rf /var/lib/mysql/ib_logfile*
+
+- name: restart mysql service
+  service:
+    name:    mysqld
+    enabled: yes
+    state:   restarted
+
+- name: update mysql root password for all root accounts
+  mysql_user:
+    name:           root
+    host:           '{{ item }}'
+    password:       '{{ mysql_root_password }}'
+    login_user:     root
+    login_password: '{{ mysql_root_password }}'
+  with_items:
+   - 127.0.0.1
+   - ::1
+   - localhost
+
+- name: copy .my.cnf
+  template:
+    src: .my.cnf
+    dest: ~/.my.cnf
+    mode: 0600
+
+- name: create a database
+  when: mysql_create_db
+  mysql_db:
+    db:    '{{ mysql_db_name }}'
+    state: present
+
+- name: create the database user
+  when: mysql_create_db
+  mysql_user:
+    name:     '{{ mysql_user_name }}'
+    password: '{{ mysql_user_password }}'
+    host:     'localhost'
+    priv:     '{{ mysql_db_name }}.*:ALL,GRANT'
+    state:    present
+

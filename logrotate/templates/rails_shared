@@ -1,0 +1,4 @@
+{{ app_path }}/shared/tmp/log/*log {
+  create 0664 {{ user_name }} {{ user_name }}
+  copytruncate
+}

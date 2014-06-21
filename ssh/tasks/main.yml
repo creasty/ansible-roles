@@ -1,0 +1,14 @@
+- name: copy sshd_config
+  template:
+    src:  sshd_config
+    dest: /etc/ssh/sshd_config
+
+- name: start ssh service
+  service:
+    name:    sshd
+    enabled: yes
+    state:   restarted
+
+- name: change ansible ssh port
+  set_fact: ansible_ssh_port={{ ssh_port }}
+

@@ -1,0 +1,8 @@
+# http://www.mk-mode.com/octopress/2013/02/17/nginx-logrotation/
+
+/var/log/nginx/*.log {
+  sharedscripts
+  postrotate
+  [ ! -f /var/run/nginx.pid ] || kill -USR1 `cat /var/run/nginx.pid`
+  endscript
+}

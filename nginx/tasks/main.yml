@@ -6,33 +6,23 @@
     - http://nginx.org/packages/centos/6/noarch/RPMS/nginx-release-centos-6-0.el6.ngx.noarch.rpm
     - nginx
 
+- name: create shared directory for nginx
+  copy:
+    src:   nginx/shared/
+    dist:  '{{ app.path }}/shared/nginx/'
+    owner: '{{ user.name }}'
+    group: '{{ user.name }}'
+
 - name: copy nginx.conf
   template:
     src:  nginx.conf
     dest: /etc/nginx/nginx.conf
 
-- name: copy app.conf
+- name: copy application specific configuration files
   template:
-    src:  '{{ nginx_app_conf }}'
-    dest: /etc/nginx/conf.d/app.conf
-
-- name: copy ssl certification
-  when: nginx_ssl
-  copy:
-    src:  '{{ nginx_ssl_certificate }}'
-    dest: '{{ app_path }}/shared/nginx/cert'
-
-- name: copy ssl certification key
-  when: nginx_ssl
-  copy:
-    src:  '{{ nginx_ssl_certificate_key }}'
-    dest: '{{ app_path }}/shared/nginx/cert.key'
-
-- name: copy htpasswd
-  when: nginx_htpasswd is defined
-  copy:
-    src:  '{{ nginx_htpasswd }}'
-    dest: '{{ app_path }}/shared/nginx/htpasswd'
+    src:  'nginx/conf.d/{{ item }}'
+    dest: '/etc/nginx/conf.d/{{ item }}.conf'
+  with_items: '{{ nginx.applications }}'
 
 - name: start nginx service
   service:

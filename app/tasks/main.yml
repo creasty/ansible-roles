@@ -1,28 +1,27 @@
 - name: set application path
   set_fact:
-    app_path: '{{ user_path }}/{{ app_name }}'
+    app_path: '{{ user.path }}/{{ app.name }}'
 
 - name: create application directory
   file:
-    path:  '{{ app_path }}'
-    owner: '{{ user_name }}'
-    group: '{{ user_name }}'
+    path:  '{{ app.path }}'
+    owner: '{{ user.name }}'
+    group: '{{ user.name }}'
     state: directory
 
 - name: create shared directory
   file:
-    path:    '{{ app_path }}/shared/{{ item }}'
+    path:    '{{ app.path }}/shared/{{ item }}'
     state:   directory
     recurse: yes
   with_items:
     - tmp/sockets
     - tmp/pids
-    - nginx
 
 - name: change owner of the shared directory
   file:
-    path:    '{{ app_path }}/shared'
+    path:    '{{ app.path }}/shared'
     recurse: yes
-    owner:   '{{ user_name }}'
-    group:   '{{ user_name }}'
+    owner:   '{{ user.name }}'
+    group:   '{{ user.name }}'
 

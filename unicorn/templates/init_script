@@ -12,12 +12,12 @@ set -e
 
 # Feel free to change any of the following variables for your app:
 TIMEOUT=${TIMEOUT-60}
-APP_ROOT={{ user_path }}/current
-PID={{ user_path }}/shared/pids/unicorn.pid
+APP_ROOT={{ app.path }}/current
+PID={{ app.path }}/shared/tmp/pids/unicorn.pid
 
-CMD="cd $APP_ROOT && /usr/local/rvm/bin/rvm ruby-{{ ruby_version }}@{{ ruby_gemset_name }} do bundle exec unicorn -D -c {{ user_path }}/current/config/unicorn.rb -E {{ rails_env }}"
+CMD="cd $APP_ROOT && /usr/local/rvm/bin/rvm ruby-{{ ruby.version }}@{{ ruby.gemset_name }} do bundle exec unicorn -D -c {{ user.path }}/current/config/unicorn.rb -E {{ rails.env }}"
 
-AS_USER={{ user_name }}
+AS_USER={{ user.name }}
 set -u
 
 OLD_PIN="$PID.oldbin"

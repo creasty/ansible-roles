@@ -2,7 +2,10 @@
   command: bash -lc 'gem install backup --no-ri --no-rdoc'
 
 - name: create directory
-  command: mkdir -p /root/Backup/models
+  file:
+    path:    /root/Backup/models
+    recurse: yes
+    state:   directory
 
 - name: copy config.rb
   template:
@@ -14,7 +17,7 @@
     src:  database_backup.rb
     dest: /root/Backup/models/database_backup.rb
 
-- name: register cron
+- name: register cron job
   cron:
     name:   'Backup at 4am every day'
     hour:   '4'

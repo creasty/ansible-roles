@@ -1,31 +1,24 @@
 God.watch do |w|
-  # 必須。ユニークに定義する必要がある
-  w.name = "#{PROJECT_NAME}: DelayedJob"
+  w.name = "#{PROJECT_NAME}: DelayedJob" # need to be unique
 
-  # プロセスをチェックする間隔
   w.interval = 30.seconds
-  w.uid = '{{ user_name }}'
-  w.gid = '{{ user_name }}'
+  w.uid = '{{ user.name }}'
+  w.gid = '{{ user.name }}'
 
   w.start = "/bin/bash -c 'cd #{APPLICATION_ROOT}/current; " +
             "RAILS_ENV=#{RAILS_ENV} " +
             "BUNDLE_GEMFILE=#{APPLICATION_ROOT}/current/Gemfile " +
             "bundle exec ./bin/delayed_job start'"
-  w.log = "#{APPLICATION_ROOT}/shared/tmp/log/delayed_job.log"
 
-  # 通常の監視に移行するまでの時間。オプション。
+  w.log = "#{APPLICATION_ROOT}/shared/tmp/log/delayed_job.log"
+  w.pid_file = "#{APPLICATION_ROOT}/shared/tmp/pids/delayed_job.pid"
+
   w.start_grace = 30.seconds
   w.restart_grace = 30.seconds
 
-  # start/stop/restart 時のフックを指定。
-  # :clean_pid_file とすると、stop時にpidファイルを削除してくれるようになる。
-  w.behavior(:clean_pid_file)
-
-  # pidファイルの場所を指定。監視したいプロセスがデーモンであれば指定する。
-  w.pid_file = "#{APPLICATION_ROOT}/shared/tmp/pids/delayed_job.pid"
+  w.behavior :clean_pid_file
 
   w.start_if do |start|
-    # プロセスを常時起動するようにする
     w.keepalive
 
     start.condition(:process_running) do |c|

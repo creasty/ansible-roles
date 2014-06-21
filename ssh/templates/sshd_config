@@ -10,7 +10,7 @@
 # possible, but leave them commented.  Uncommented options change a
 # default value.
 
-Port {{ ssh_port }}
+Port {{ ssh.port }}
 #AddressFamily any
 #ListenAddress 0.0.0.0
 #ListenAddress ::

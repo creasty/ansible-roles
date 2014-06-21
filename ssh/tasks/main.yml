@@ -10,5 +10,5 @@
     state:   restarted
 
 - name: change ansible ssh port
-  set_fact: ansible_ssh_port={{ ssh_port }}
+  set_fact: ansible_ssh_port={{ ssh.port }}
 

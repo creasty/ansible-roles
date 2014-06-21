@@ -1,2 +1,2 @@
 Cmnd_Alias CMDS = /etc/init.d/nginx
-{{ user_name }}    ALL=(ALL:ALL) NOPASSWD: CMDS
+{{ user.name }}    ALL=(ALL:ALL) NOPASSWD: CMDS

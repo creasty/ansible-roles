@@ -38,13 +38,13 @@
     enabled: yes
     state:   restarted
 
-- name: update mysql root password for all root accounts
+- name: change mysql root password for all hosts
   mysql_user:
     name:           root
     host:           '{{ item }}'
-    password:       '{{ mysql_root_password }}'
+    password:       '{{ mysql.root_password }}'
     login_user:     root
-    login_password: '{{ mysql_root_password }}'
+    login_password: '{{ mysql.root_password }}'
   with_items:
    - 127.0.0.1
    - ::1
@@ -57,17 +57,17 @@
     mode: 0600
 
 - name: create a database
-  when: mysql_create_db
+  when: mysql.database is defined
   mysql_db:
-    db:    '{{ mysql_db_name }}'
+    db:    '{{ mysql.database.name }}'
     state: present
 
 - name: create the database user
-  when: mysql_create_db
+  when: mysql.database is defined
   mysql_user:
-    name:     '{{ mysql_user_name }}'
-    password: '{{ mysql_user_password }}'
+    name:     '{{ mysql.database.user }}'
+    password: '{{ mysql.database.password }}'
     host:     'localhost'
-    priv:     '{{ mysql_db_name }}.*:ALL,GRANT'
+    priv:     '{{ mysql.database.name }}.*:ALL,GRANT'
     state:    present
 

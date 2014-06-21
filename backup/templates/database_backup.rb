@@ -13,30 +13,29 @@ Model.new(:database_backup, 'Database backup') do
   # MySQL [Database]
   #
   database MySQL do |db|
-    # To dump all databases, set `db.name = :all` (or leave blank)
-    db.name               = '{{ mysql_db_name }}'
-    db.username           = '{{ mysql_user_name }}'
-    db.password           = '{{ mysql_user_password }}'
-    db.host               = 'localhost'
-    db.port               = 3306
+    db.name               = '{{ backup.db.database }}'
+    db.username           = '{{ backup.db.user }}'
+    db.password           = '{{ backup.db.password }}'
+    db.host               = '{{ backup.db.host }}'
+    db.port               = '{{ backup.db.port }}'
+{% if backup.db.socket is defined -%}
     db.socket             = '/var/lib/mysql/mysql.sock'
+{% endif -%}
     # db.skip_tables        = ["skip", "these", "tables"]
     # db.only_tables        = ["only", "these", "tables"]
-    db.additional_options = ["--quick", "--single-transaction"]
+    db.additional_options = ['--quick', '--single-transaction']
   end
 
   ##
   # Amazon Simple Storage Service [Storage]
   #
   store_with S3 do |s3|
-    # AWS Credentials
-    # Or, to use a IAM Profile:
     # s3.use_iam_profile = true
-    s3.access_key_id     = '{{ backup_s3_access_key_id }}'
-    s3.secret_access_key = '{{ backup_s3_secret_access_key }}'
-    s3.region            = '{{ backup_s3_bucket_region }}'
-    s3.bucket            = '{{ backup_s3_bucket_name }}'
-    s3.path              = '{{ backup_s3_bucket_path }}'
+    s3.access_key_id     = '{{ backup.s3.access_key_id }}'
+    s3.secret_access_key = '{{ backup.s3.secret_access_key }}'
+    s3.region            = '{{ backup.s3.region }}'
+    s3.bucket            = '{{ backup.s3.name }}'
+    s3.path              = '{{ backup.s3.path }}'
   end
 
   ##
@@ -50,20 +49,22 @@ Model.new(:database_backup, 'Database backup') do
   # The default delivery method for Mail Notifiers is 'SMTP'.
   # See the documentation for other delivery options.
   #
+{% if backup.notification_mail is defined -%}
   notify_by Mail do |mail|
-    mail.on_success           = true
-    mail.on_warning           = true
-    mail.on_failure           = true
+    mail.on_success     = true
+    mail.on_warning     = true
+    mail.on_failure     = true
 
-    mail.from                 = '{{ email_address }}'
-    mail.to                   = '{{ backup_notifier_email_to }}'
-    mail.address              = '{{ email_server }}'
-    mail.port                 = 587
-    mail.domain               = '{{ email_domain }}'
-    mail.user_name            = '{{ email_username }}'
-    mail.password             = '{{ email_password }}'
-    mail.authentication       = 'plain'
-    mail.encryption           = :starttls
+    mail.from           = '{{ backup.notification_mail.address }}'
+    mail.to             = '{{ backup.notification_mail.to }}'
+    mail.address        = '{{ backup.notification_mail.server }}'
+    mail.port           = '{{ backup.notification_mail.port }}'
+    mail.domain         = '{{ backup.notification_mail.domain }}'
+    mail.user_name      = '{{ backup.notification_mail.username }}'
+    mail.password       = '{{ backup.notification_mail.password }}'
+    mail.authentication = 'plain'
+    mail.encryption     = :starttls
   end
+{% endif -%}
 
 end

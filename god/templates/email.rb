@@ -1,5 +1,3 @@
-# GmailのSMTPサーバでメール送信するためのモンキーパッチ
-# https://coderwall.com/p/auiktq
 Net::SMTP.class_eval do
   def initialize_with_starttls(*args)
     initialize_without_starttls(*args)
@@ -11,12 +9,12 @@ Net::SMTP.class_eval do
 end
 
 God::Contacts::Email.defaults do |d|
-  d.from_email      = '{{ email_address }}'
-  d.from_name       = "Alert [#{PROJECT_NAME}]"
-  d.server_host     = '{{ email_server }}'
-  d.server_port     = 587
+  d.from_email      = '{{ god.mailer.address }}'
+  d.from_name       = "Alert: {{ god.project_name }}"
+  d.server_host     = '{{ god.mailer.server }}'
+  d.server_port     = '{{ god.mailer.port }}'
   d.server_auth     = :plain
-  d.server_domain   = '{{ email_domain }}'
-  d.server_user     = '{{ email_username }}'
-  d.server_password = '{{ email_password }}'
+  d.server_domain   = '{{ god.mailer.domain }}'
+  d.server_user     = '{{ god.mailer.username }}'
+  d.server_password = '{{ god.mailer.password }}'
 end

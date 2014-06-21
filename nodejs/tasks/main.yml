@@ -1,4 +1,4 @@
-- name: install node.js package
+- name: install nodejs package
   yum:
     name:  '{{ item }}'
     state: present

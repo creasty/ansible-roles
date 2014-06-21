@@ -14,11 +14,8 @@ Excerpt
 Configuration
 -------------
 
-```javascript
-{
-  "rails": {
-    "env": "production"
-  }
-}
+```yaml
+rails:
+  env: production
 ```
 

@@ -16,11 +16,8 @@ Excerpt
 Configuration
 -------------
 
-```javascript
-{
-  "ssh": {
-    "port": 55555
-  }
-}
+```yaml
+ssh:
+  port: 55555
 ```
 

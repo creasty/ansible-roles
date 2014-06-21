@@ -11,14 +11,11 @@ Excerpt
 Configuration
 -------------
 
-```javascript
-{
-  "aws": {
-    "access_key_id": "",
-    "secret_access_key": "",
-    "region": ""
-  }
-}
+```yaml
+aws:
+  access_key_id:     xxxxxxxx
+  secret_access_key: xxxxxxxx
+  region:            ap-northeast-1
 ```
 
 

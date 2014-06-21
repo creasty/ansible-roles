@@ -12,11 +12,8 @@ Excerpt
 Configuration
 -------------
 
-```javascript
-{
-  "newrelic": {
-    "license_key": "xxxxxxxx"
-  }
-}
+```yaml
+newrelic:
+ license_key: xxxxxxxx
 ```
 

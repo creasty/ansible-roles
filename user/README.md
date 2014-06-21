@@ -13,14 +13,11 @@ Excerpt
 Configuration
 -------------
 
-```javascript
-{
-  "user": {
-    "name":              "webapp",
-    "path":              "/home/webapp",
-    "login_pubkey_file": "...",
-    "id_rsa_file":       "..."
-  }
-}
+```yaml
+user:
+  name:              webapp
+  path:              /home/webapp
+  login_pubkey_file: ...
+  id_rsa_file:       ...
 ```
 

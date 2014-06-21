@@ -12,42 +12,36 @@ Excerpt
 Configuration
 -------------
 
-```javascript
-{
-  "god": {
-    "project_name": "My rails app (production)",
-    "mailer": {
-      "address":  "backup@example.com",
-      "server":   "smtp.example.com",
-      "port":     587,
-      "domain":   "example.com",
-      "username": "backup",
-      "password": "xxxxxxxx"
-    },
-    "twilio": {  // [not implemented yet]
-      "account":     "",
-      "token":       "",
-      "number":      "",
-      "message_url": ""
-    },
-    "contacts": [
-      {
-        // Email
-        "name": "webmaster",
-        "via":  "email",
-        "type": "email",
-        "to":   "webmaster@example.com"
-      },
-      {
-        // Twilio [not implemented yet]
-        "name": "webmaster",
-        "via":  "twilio",
-        "type": "number",
-        "to":   "0123456789"
-      }
-    ]
-  }
-}
+```yaml
+god:
+  project_name: My rails app (production)
+  mailer:
+    address:  backup@example.com
+    server:   smtp.example.com
+    port:     587
+    domain:   example.com
+    username: backup
+    password: xxxxxxxx
+
+  # [not implemented yet]
+  twilio:
+    account:     xxxxxxxx
+    token:       xxxxxxxx
+    number:      0123456789
+    message_url: http://...
+
+  contacts:
+    # Email
+    - name: webmaster
+      via:  email
+      type: email
+      to:   webmaster@example.com
+
+    # Twilio [not implemented yet]
+    - name: webmaster
+      via:  twilio
+      type: number
+      to:   0123456789
 ```
 
 

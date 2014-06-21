@@ -14,12 +14,10 @@ Excerpt
 Configuration
 -------------
 
-```javascript
-{
-  "nginx": {
-    "application": ["virtual_host_1"]
-  }
-}
+```yaml
+nginx:
+  applications:
+    - virtual_host_1
 ```
 
 

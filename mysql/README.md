@@ -19,16 +19,14 @@ and optionally,
 Configuration
 -------------
 
-```javascript
-{
-  "mysql": {
-    "root_password": "xxxxxxxx",
-    "database": {  // [optional]
-      "name":     "my_rails_app_production",
-      "user":     "my_rails_app",
-      "password": "xxxxxxxx"
-    }
-  }
-}
+```yaml
+mysql:
+  root_password: xxxxxxxx
+
+  # [optional]
+  database:
+    name:     my_rails_app_production
+    user:     my_rails_app
+    password: xxxxxxxx
 ```
 

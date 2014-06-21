@@ -11,13 +11,10 @@ Excerpt
 Configuration
 -------------
 
-```javascript
-{
-  "app": {
-    "name":        "my_rails_app",
-    "server_name": "www.app.com"
-  }
-}
+```yaml
+app:
+  name:        my_rails_app
+  server_name: www.app.com
 ```
 
 

@@ -17,7 +17,7 @@
 
 - name: copy the user's sudoers
   template:
-    src:   sudoer
+    src:   '{{ common_path }}/user/templates/sudoer'
     dest:  '/etc/sudoers.d/{{ user.name }}'
     owner: root
     group: root

@@ -26,7 +26,7 @@
 
 - name: copy my.cnf
   template:
-    src:  my.cnf
+    src:  '{{ common_path }}/mysql/templates/my.cnf'
     dest: /etc/my.cnf
 
 - name: delete ib_logfiles
@@ -52,7 +52,7 @@
 
 - name: copy .my.cnf
   template:
-    src: .my.cnf
+    src: '{{ common_path }}/mysql/templates/.my.cnf'
     dest: ~/.my.cnf
     mode: 0600
 

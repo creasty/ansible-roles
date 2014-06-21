@@ -1,6 +1,6 @@
 - name: copy init_script
   template:
-    src:   init_script
+    src:   '{{ common_path}}/unicorn/templates/init_script'
     dest:  /etc/init.d/unicorn_{{ user.name }}_{{ rails.env }}
     owner: '{{ user.name }}'
     group: '{{ user.name }}'

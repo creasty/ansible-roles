@@ -15,7 +15,7 @@
 
 - name: copy nginx.conf
   template:
-    src:  '{{ common_path }}/nginx/templates/nginx.conf'
+    src:  '{{ common_path }}/templates/nginx/nginx.conf'
     dest: /etc/nginx/nginx.conf
 
 - name: copy application specific configuration files

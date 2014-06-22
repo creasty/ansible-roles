@@ -18,12 +18,12 @@
 
 - name: copy redis.conf
   template:
-    src:  '{{ common_path }}/redis/templates/redis.conf'
+    src:  '{{ common_path }}/templates/redis/redis.conf'
     dest: /etc/redis.conf
 
 - name: copy redis-server.conf
   template:
-    src:  '{{ common_path }}/redis/templates/redis-server.conf'
+    src:  '{{ common_path }}/templates/redis/redis-server.conf'
     dest: /etc/init/redis-server.conf
 
 - name: start redis

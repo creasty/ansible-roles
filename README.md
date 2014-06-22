@@ -20,7 +20,28 @@ $ ln -s ~/somewhere/the/repository/exists common
 ```
 
 
-### 2. 
+### 2. Set assets_path in your playbook file
+
+```yaml
+- name:  setup example production server
+  hosts: example_production
+  sudo:  true
+
+  vars:
+    assets_path: ../roles/example_production
+
+  # ...
+```
+
+### 3. Include common roles in a main task file
+
+```yaml
+- include: '{{ common_path }}/common.yml'
+- include: '{{ common_path }}/ntp.yml'
+- include: '{{ common_path }}/user.yml'
+- include: '{{ common_path }}/app.yml'
+# ...
+```
 
 
 Special thanks

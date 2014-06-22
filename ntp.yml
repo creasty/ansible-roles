@@ -4,13 +4,13 @@
     state: present
 
 - name: copy ntp.conf
-  template:
-    src:  '{{ common_path }}/templates/ntp/ntp.conf'
+  copy:
+    src:  ntp/ntp.conf
     dest: /etc/ntp.conf
 
 - name: copy timezone
-  template:
-    src:  '{{ common_path }}/templates/ntp/timezone'
+  copy:
+    src:  ntp/timezone
     dest: /etc/timezone
 
 - name: set localtime

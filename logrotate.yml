@@ -1,11 +1,11 @@
 - name: copy logrotate.conf
   template:
-    src:  '{{ common_path }}/templates/logrotate/logrotate.conf'
+    src:  logrotate/logrotate.conf
     dest: /etc/logrotate.conf
 
 - name: copy logrotate.d
   template:
-    src:  '{{ common_path }}/templates/logrotate/{{ item }}'
+    src:  'logrotate/{{ item }}'
     dest: '/etc/logrotate.d/{{ item }}'
   with_items:
     - nginx

@@ -6,12 +6,12 @@
 
 - name: copy config.god
   template:
-    src:  '{{ common_path }}/templates/god/config.god'
+    src:  god/config.god
     dest: /etc/god/config.god
 
 - name: copy contact methods file
   template:
-    src:  '{{ common_path }}/templates/god/{{ item }}.rb'
+    src:  god/{{ item }}.rb
     dest: '/etc/god/contacts/{{ item }}.rb'
   with_items:
     - email
@@ -19,7 +19,7 @@
 
 - name: copy delayed_job.god
   template:
-    src:  '{{ common_path }}/templates/god/delayed_job.god'
+    src:  god/delayed_job.god
     dest: /etc/god/config/delayed_job.god
 
 - name: start god

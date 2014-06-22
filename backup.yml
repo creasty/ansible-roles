@@ -9,12 +9,12 @@
 
 - name: copy config.rb
   template:
-    src:  '{{ common_path }}/templates/backup/config.rb'
+    src:  backup/config.rb
     dest: /root/Backup/config.rb
 
 - name: copy database_backup.rb
   template:
-    src:  '{{ comman_path }}/templates/backup/database_backup.rb'
+    src:  backup/database_backup.rb
     dest: /root/Backup/models/database_backup.rb
 
 - name: register cron job

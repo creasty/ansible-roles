@@ -7,7 +7,7 @@
 
 - name: copy aws config file
   template:
-    src:   '{{ common_path }}/templates/aws/config'
+    src:   aws/config
     dest:  '{{ user.path }}/.aws/config'
     owner: '{{ user.name }}'
     group: '{{ user.name }}'

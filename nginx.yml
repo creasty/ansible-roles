@@ -8,21 +8,21 @@
 
 - name: create shared directory for nginx
   copy:
-    src:   nginx/shared/
+    src:   '{{ assets_path }}/files/nginx/shared/'
     dist:  '{{ app.path }}/shared/nginx/'
     owner: '{{ user.name }}'
     group: '{{ user.name }}'
 
 - name: copy nginx.conf
   template:
-    src:  '{{ common_path }}/templates/nginx/nginx.conf'
+    src:  nginx/nginx.conf
     dest: /etc/nginx/nginx.conf
 
 - name: copy application specific configuration files
   template:
-    src:  'nginx/conf.d/{{ item }}'
+    src:  '{{ assets_path }}/files/nginx/conf.d/{{ item }}'
     dest: '/etc/nginx/conf.d/{{ item }}.conf'
-  with_items: '{{ nginx.applications }}'
+  with_items: nginx.applications
 
 - name: start nginx service
   service:

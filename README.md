@@ -1,7 +1,7 @@
 Ansible roles
 =============
 
-Common role collection for web application
+The collection of common reusable roles for web application server
 
 
 How to use

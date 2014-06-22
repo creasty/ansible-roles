@@ -1,7 +1,9 @@
 - name: set application path
   set_fact:
     app:
-      path: '{{ user.path }}/{{ app.name }}'
+      name:        '{{ app.name }}'  # copy
+      server_name: '{{ app.server_name }}'  # copy
+      path:        '{{ user.path }}/{{ app.name }}'
 
 - name: create application directory
   file:

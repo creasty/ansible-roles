@@ -15,9 +15,9 @@ Configuration
 
 ```yaml
 user:
-  name:              webapp
-  path:              /home/webapp
-  login_pubkey_file: ...
-  id_rsa_file:       ...
+  name:           webapp
+  path:           /home/webapp
+  authorized_key: webapp
+  id_rsa:         id_rsa
 ```
 

@@ -28,7 +28,9 @@ $ ln -s ~/somewhere/the/repository/exists common
   sudo:  true
 
   vars:
-    assets_path: ../roles/example_production
+    common_path:      ../../common
+    assets_path:      ../roles/example_production
+    loop_assets_path: ../example_production
 
   # ...
 ```

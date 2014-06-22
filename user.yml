@@ -7,11 +7,13 @@
 - name: setup authorized_key
   authorized_key:
     user: '{{ user.name }}'
-    key:  '{{ lookup("file", user.login_pubkey_file) }}'
+    key:  '{{ item }}'
+  with_file:
+    - '{{ loop_assets_path }}/files/user/{{ user.authorized_key }}.pub'
 
 - name: copy id_rsa
   copy:
-    src:  '{{ user.id_rsa_file }}'
+    src:  '{{ assets_path }}/files/user/{{ user.id_rsa }}'
     dest: '{{ user.path }}/.ssh/id_rsa'
     mode: '0600'
 

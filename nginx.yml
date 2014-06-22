@@ -7,11 +7,20 @@
     - nginx
 
 - name: create shared directory for nginx
-  copy:
-    src:   '{{ assets_path }}/files/nginx/shared/'
-    dist:  '{{ app.path }}/shared/nginx/'
+  file:
+    path:  '{{ app.path }}/shared/nginx'
+    state: directory
     owner: '{{ user.name }}'
     group: '{{ user.name }}'
+
+- name: copy shared files
+  copy:
+    src:   '{{ item }}'
+    dest:  '{{ app.path }}/shared/nginx/'
+    owner: '{{ user.name }}'
+    group: '{{ user.name }}'
+  with_fileglob:
+    - '{{ assets_path }}/files/nginx/shared/*'
 
 - name: copy nginx.conf
   template:
@@ -20,9 +29,10 @@
 
 - name: copy application specific configuration files
   template:
-    src:  '{{ assets_path }}/files/nginx/conf.d/{{ item }}'
-    dest: '/etc/nginx/conf.d/{{ item }}.conf'
-  with_items: nginx.applications
+    src:  '{{ item }}'
+    dest: /etc/nginx/conf.d/
+  with_fileglob:
+    - '{{ assets_path }}/templates/nginx/conf.d/*.conf'
 
 - name: start nginx service
   service:

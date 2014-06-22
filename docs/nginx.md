@@ -6,19 +6,10 @@ Excerpt
 
 - install nginx package
 - create shared directory for nginx
+- copy shared files
 - copy common configuration file
 - copy applicaion configuration files
 - start nginx service
-
-
-Configuration
--------------
-
-```yaml
-nginx:
-  applications:
-    - virtual_host_1
-```
 
 
 Dependencies

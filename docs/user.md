@@ -21,3 +21,10 @@ user:
   id_rsa:         id_rsa
 ```
 
+
+Files
+-----
+
+- `/files/user/{{ user.authorized_key }}.pub`: SSH public-key file to login to the user
+- `/files/user/{{ user.id_rsa }}`: User's default ssh secret-key file
+

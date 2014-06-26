@@ -12,6 +12,13 @@ Excerpt
 - start nginx service
 
 
+Files
+-----
+
+- `/files/nginx/shared/*`: files to be copied to `{{ app.path }}/shared/nginx`
+- `/templates/nginx/conf.d/*.conf`: applicaion configuration files
+
+
 Dependencies
 ------------
 

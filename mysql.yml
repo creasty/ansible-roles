@@ -1,6 +1,6 @@
 - name: mysql | install mysql packages
   yum:
-    name:  '{{ item }}'
+    name:  $item
     state: present
   with_items:
     - http://repo.mysql.com/mysql-community-release-el6-4.noarch.rpm
@@ -41,20 +41,35 @@
 - name: mysql | change mysql root password for all hosts
   mysql_user:
     name:           root
-    host:           '{{ item }}'
+    host:           $item
     password:       '{{ mysql.root_password }}'
     login_user:     root
     login_password: '{{ mysql.root_password }}'
   with_items:
+   - $ansible_hostname
    - 127.0.0.1
    - ::1
    - localhost
 
 - name: mysql | copy .my.cnf
   template:
-    src: mysql/_my.cnf
-    dest: ~/.my.cnf
-    mode: 0600
+    src:   mysql/_my.cnf
+    dest:  ~/.my.cnf
+    mode:  0600
+
+- name: mysql | remove anonymous users
+  mysql_user:
+    name:  ''
+    host:  $item
+    state: absent
+  with_items:
+    - localhost
+    - $inventory_hostname
+
+- name: mysql | remove the test database
+  mysql_db:
+    name:  test
+    state: absent
 
 - name: mysql | create a database
   when: mysql.database is defined

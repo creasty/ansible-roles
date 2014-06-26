@@ -1,23 +1,23 @@
-- name: install backup gem
+- name: backup | install backup gem
   command: bash -lc 'gem install backup --no-ri --no-rdoc'
 
-- name: create directory
+- name: backup | create directory
   file:
     path:    /root/Backup/models
     recurse: yes
     state:   directory
 
-- name: copy config.rb
+- name: backup | copy config.rb
   template:
     src:  backup/config.rb
     dest: /root/Backup/config.rb
 
-- name: copy database_backup.rb
+- name: backup | copy database_backup.rb
   template:
     src:  backup/database_backup.rb
     dest: /root/Backup/models/database_backup.rb
 
-- name: register cron job
+- name: backup | register cron job
   cron:
     name:   'Backup at 4am every day'
     hour:   '4'

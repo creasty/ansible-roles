@@ -1,4 +1,4 @@
-- name: install nginx package
+- name: nginx | install nginx package
   yum:
     name:  '{{ item }}'
     state: present
@@ -6,14 +6,14 @@
     - http://nginx.org/packages/centos/6/noarch/RPMS/nginx-release-centos-6-0.el6.ngx.noarch.rpm
     - nginx
 
-- name: create shared directory for nginx
+- name: nginx | create shared directory for nginx
   file:
     path:  '{{ app.path }}/shared/nginx'
     state: directory
     owner: '{{ user.name }}'
     group: '{{ user.name }}'
 
-- name: copy shared files
+- name: nginx | copy shared files
   copy:
     src:   '{{ item }}'
     dest:  '{{ app.path }}/shared/nginx/'
@@ -22,19 +22,19 @@
   with_fileglob:
     - '{{ loop_assets_path }}/files/nginx/shared/*'
 
-- name: copy nginx.conf
+- name: nginx | copy nginx.conf
   template:
     src:  nginx/nginx.conf
     dest: /etc/nginx/nginx.conf
 
-- name: copy application specific configuration files
+- name: nginx | copy application specific configuration files
   template:
     src:  '{{ item }}'
     dest: /etc/nginx/conf.d/
   with_fileglob:
     - '{{ loop_assets_path }}/templates/nginx/conf.d/*.conf'
 
-- name: start nginx service
+- name: nginx | start nginx service
   service:
     name:    nginx
     enabled: yes

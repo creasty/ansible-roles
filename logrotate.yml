@@ -1,9 +1,9 @@
-- name: copy logrotate.conf
+- name: logrotate | copy logrotate.conf
   template:
     src:  logrotate/logrotate.conf
     dest: /etc/logrotate.conf
 
-- name: copy logrotate.d
+- name: logrotate | copy logrotate.d
   template:
     src:  'logrotate/{{ item }}'
     dest: '/etc/logrotate.d/{{ item }}'

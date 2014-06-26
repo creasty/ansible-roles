@@ -1,15 +1,15 @@
-- name: install god
+- name: god | install god
   command: bash -lc 'gem install god --no-ri --no-rdoc'
 
-- name: create directory
+- name: god | create directory
   command: mkdir -p /etc/god/config /etc/god/contacts
 
-- name: copy config.god
+- name: god | copy config.god
   template:
     src:  god/config.god
     dest: /etc/god/config.god
 
-- name: copy contact methods file
+- name: god | copy contact methods file
   template:
     src:  god/{{ item }}.rb
     dest: '/etc/god/contacts/{{ item }}.rb'
@@ -17,12 +17,12 @@
     - email
     - twilio
 
-- name: copy delayed_job.god
+- name: god | copy delayed_job.god
   template:
     src:  god/delayed_job.god
     dest: /etc/god/config/delayed_job.god
 
-- name: start god
+- name: god | start god
   command:       god -c /etc/god/config.god
   ignore_errors: true
 

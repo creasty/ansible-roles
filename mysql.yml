@@ -1,4 +1,4 @@
-- name: install mysql packages
+- name: mysql | install mysql packages
   yum:
     name:  '{{ item }}'
     state: present
@@ -8,13 +8,13 @@
     - mysql-community-server
     - libselinux-python
 
-- name: install mysql python module (via yum)
+- name: mysql | install mysql python module (via yum)
   when: not ansible_distribution == 'Amazon'
   yum:
     name:  MySQL-python
     state: present
 
-- name: install mysql python module (from source)
+- name: mysql | install mysql python module (from source)
   when: ansible_distribution == 'Amazon' # Amazon Linux AMI
   command: 'bash -lc "{{ item }}"'
   with_items:
@@ -24,21 +24,21 @@
     - 'cd /usr/tmp/MySQL-python-1.2.3 && python setup.py install'
     - 'rm -rf /usr/tmp/MySQL-python*'
 
-- name: copy my.cnf
+- name: mysql | copy my.cnf
   template:
     src:  mysql/my.cnf
     dest: /etc/my.cnf
 
-- name: delete ib_logfiles
+- name: mysql | delete ib_logfiles
   shell: rm -rf /var/lib/mysql/ib_logfile*
 
-- name: restart mysql service
+- name: mysql | restart mysql service
   service:
     name:    mysqld
     enabled: yes
     state:   restarted
 
-- name: change mysql root password for all hosts
+- name: mysql | change mysql root password for all hosts
   mysql_user:
     name:           root
     host:           '{{ item }}'
@@ -50,19 +50,19 @@
    - ::1
    - localhost
 
-- name: copy .my.cnf
+- name: mysql | copy .my.cnf
   template:
     src: mysql/_my.cnf
     dest: ~/.my.cnf
     mode: 0600
 
-- name: create a database
+- name: mysql | create a database
   when: mysql.database is defined
   mysql_db:
     db:    '{{ mysql.database.name }}'
     state: present
 
-- name: create the database user
+- name: mysql | create the database user
   when: mysql.database is defined
   mysql_user:
     name:     '{{ mysql.database.user }}'

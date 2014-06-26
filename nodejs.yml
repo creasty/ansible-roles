@@ -1,4 +1,4 @@
-- name: install nodejs package
+- name: nodejs | install nodejs package
   yum:
     name:  '{{ item }}'
     state: present
@@ -6,7 +6,7 @@
     - http://ftp.riken.jp/Linux/fedora/epel/6/x86_64/epel-release-6-8.noarch.rpm
     - nodejs
 
-# - name: start nodejs service
+# - name: nodejs | start nodejs service
 #   service:
 #     name:    nodejs
 #     enabled: yes

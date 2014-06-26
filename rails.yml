@@ -1,4 +1,4 @@
-- name: install rails dependent packages
+- name: rails | install rails dependent packages
   yum:
     pkg:   '{{ item }}'
     state: present

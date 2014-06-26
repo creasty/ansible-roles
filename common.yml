@@ -1,7 +1,7 @@
-- name: update all yum packages
+- name: common | update all yum packages
   yum: name=* state=latest
 
-- name: install yum packages
+- name: common | install yum packages
   yum:
     pkg:   '{{ item }}'
     state: present

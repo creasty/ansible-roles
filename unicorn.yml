@@ -1,4 +1,4 @@
-- name: copy init_script
+- name: unicorn | copy init_script
   template:
     src:   unicorn/init_script
     dest:  /etc/init.d/unicorn_{{ user.name }}_{{ rails.env }}

@@ -1,18 +1,18 @@
-- name: set application path
+- name: app | set application path
   set_fact:
     app:
       name:        '{{ app.name }}'  # copy
       server_name: '{{ app.server_name }}'  # copy
       path:        '{{ user.path }}/{{ app.name }}'
 
-- name: create application directory
+- name: app | create application directory
   file:
     path:  '{{ app.path }}'
     owner: '{{ user.name }}'
     group: '{{ user.name }}'
     state: directory
 
-- name: create shared directory
+- name: app | create shared directory
   file:
     path:    '{{ app.path }}/shared/{{ item }}'
     state:   directory
@@ -21,7 +21,7 @@
     - tmp/sockets
     - tmp/pids
 
-- name: change owner of the shared directory
+- name: app | change owner of the shared directory
   file:
     path:    '{{ app.path }}/shared'
     recurse: yes

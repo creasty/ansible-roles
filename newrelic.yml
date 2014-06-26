@@ -1,4 +1,4 @@
-- name: install newrelic package
+- name: newrelic | install newrelic package
   yum:
     name:  '{{ item }}'
     state: present
@@ -6,9 +6,9 @@
     - https://yum.newrelic.com/pub/newrelic/el5/x86_64/newrelic-repo-5-3.noarch.rpm
     - newrelic-sysmond
 
-- name: set license key
+- name: newrelic | set license key
   command: nrsysmond-config --set license_key={{ newrelic.license_key }}
 
-- name: start newrelic-sysmond service
+- name: newrelic | start newrelic-sysmond service
   command: /etc/init.d/newrelic-sysmond start
 

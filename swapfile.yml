@@ -1,16 +1,16 @@
-- name: create swap space
+- name: swapfile | create swap space
   when: ansible_swaptotal_mb < 2
   command: dd if=/dev/zero of=/swapfile bs=2048 count=512k
 
-- name: make swap
+- name: swapfile | make swap
   when: ansible_swaptotal_mb < 2
   command: mkswap /swapfile
 
-- name: turn on swap
+- name: swapfile | turn on swap
   when: ansible_swaptotal_mb < 2
   command: swapon -a
 
-- name: add to fstab
+- name: swapfile | add to fstab
   when: ansible_swaptotal_mb < 2
   lineinfile:
     dest:   /etc/fstab
@@ -18,13 +18,13 @@
     line:   '/swapfile none swap sw 0 0'
     state:  present
 
-- name: set swappiness (1/2)
+- name: swapfile | set swappiness (1/2)
   shell: echo '10' | tee /proc/sys/vm/swappiness
 
-- name: set swappiness (2/2)
+- name: swapfile | set swappiness (2/2)
   shell: echo 'vm.swappiness = 10' | tee -a /etc/sysctl.conf
 
-- name: change owner and permission of the swapfile
+- name: swapfile | change owner and permission of the swapfile
   when: ansible_swaptotal_mb < 2
   file:
     path:  /swapfile

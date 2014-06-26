@@ -1,23 +1,23 @@
-- name: create an user
+- name: user | create an user
   user:
     name:  '{{ user.name }}'
     home:  '{{ user.path }}'
     shell: /bin/bash
 
-- name: setup authorized_key
+- name: user | setup authorized_key
   authorized_key:
     user: '{{ user.name }}'
     key:  '{{ item }}'
   with_file:
     - '{{ loop_assets_path }}/files/user/{{ user.authorized_key }}.pub'
 
-- name: copy id_rsa
+- name: user | copy id_rsa
   copy:
     src:  '{{ assets_path }}/files/user/{{ user.id_rsa }}'
     dest: '{{ user.path }}/.ssh/id_rsa'
     mode: '0600'
 
-- name: copy the user's sudoers
+- name: user | copy the user's sudoers
   template:
     src:   user/sudoer
     dest:  '/etc/sudoers.d/{{ user.name }}'

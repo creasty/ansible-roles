@@ -1,9 +1,9 @@
-- name: install rvm
+- name: ruby | install rvm
   shell: 'curl -sSL https://get.rvm.io | bash -s stable'
 
-- name: install ruby via rvm
+- name: ruby | install ruby via rvm
   command: bash -lc 'rvm install {{ ruby.version }}'
 
-- name: create gemset
+- name: ruby | create gemset
   command: bash -lc 'rvm {{ ruby.version }}@{{ ruby.gemset_name }} --create --default'
 

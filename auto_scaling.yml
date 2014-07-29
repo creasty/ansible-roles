@@ -1,0 +1,14 @@
+- name: auto_scaling | copy init_script
+  template:
+    src:   auto_scaling/init_script
+    dest:  /etc/init.d/auto_scaling
+    owner: root
+    group: root
+    mode:  0755
+
+- name: auto_scaling | start auto-scaling service
+  service:
+    name:    auto_scaling
+    enabled: yes
+    state:   restarted
+

@@ -1,0 +1,12 @@
+#!/bin/bash
+
+APP_ROOT={{ app.path }}/current
+
+if ! [ -d "$APP_ROOT" ]; then
+  # FIXME: clone from a repository
+  exit
+fi
+
+cd $APP_ROOT/current
+bundle exec cap {{ auto_scaling.capistrano_host }} deploy
+

@@ -1,0 +1,22 @@
+- name: iptables | ensure directory
+  file:
+    path:  '/etc/sysconfig'
+    owner: root
+    group: root
+    mode:  0755
+    state: directory
+
+- name: iptables | copy iptables file
+  copy:
+    src:   '{{ assets_path }}/templates/iptables/iptables'
+    dest:  '/etc/sysconfig/iptables'
+    owner: root
+    group: root
+    mode:  0644
+
+- name: iptables | start firewall service
+  service:
+    name:    iptables
+    enabled: yes
+    state:   restarted
+

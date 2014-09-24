@@ -28,6 +28,6 @@ Special thanks
 
 These repositories have heavily inspired me.
 
-- https://github.com/bojovs/annict-playbooks
+- https://github.com/annict/ansible-playbooks
 - https://github.com/iktakahiro/ansible_playbooks
 

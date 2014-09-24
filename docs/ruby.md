@@ -4,9 +4,13 @@ Role: ruby
 Excerpt
 -------
 
-- install rvm
-- install ruby via rvm
-- create gemset
+- install rbenv
+- copy initialize script
+- install ruby-build
+- install ruby
+- set global version
+- exec rehash
+- install bundler
 
 
 Configuration
@@ -14,7 +18,6 @@ Configuration
 
 ```yaml
 ruby:
-  version:     2.1.1
-  gemset_name: my-gemset
+  version: 2.1.1
 ```
 

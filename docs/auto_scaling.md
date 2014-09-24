@@ -4,8 +4,8 @@ Role: auto_scaling
 Excerpt
 -------
 
-- create an application directory
-- create a shared directory
+- copy fetch script
+- ensure the server is up-to-date as it's launched from AMI
 
 
 Configuration

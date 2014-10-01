@@ -51,11 +51,11 @@
   ignore_errors: yes
 
 - name: ruby | install ruby
-  shell: RBENV_ROOT=/usr/local/rbenv rbenv install {{ ruby_version }}
+  shell: RBENV_ROOT=/usr/local/rbenv rbenv install {{ ruby.version }}
   when:  ruby_installed|failed
 
 - name: ruby | set global version of ruby to {{ ruby.version }}
-  shell: RBENV_ROOT=/usr/local/rbenv rbenv global {{ ruby_version }}
+  shell: RBENV_ROOT=/usr/local/rbenv rbenv global {{ ruby.version }}
   when:  ruby_installed|failed
 
 - name: ruby | exec rehash

@@ -7,7 +7,20 @@
 #     - nodejs
 
 - name: node | install nvm
-  command: wget -qO- https://raw.githubusercontent.com/creationix/nvm/v0.17.3/install.sh | bash
+  git:
+    repo:   https://github.com/creationix/nvm.git
+    dest:   '{{ user.path }}/.nvm'
+    update: yes
+
+- name: node | activate nvm
+  lineinfile:
+    dest:   '{{ user.path }}/.bashrc'
+    regexp: 'nvm/nvm\.sh'
+    line:   'source ~/.nvm/nvm.sh'
+    state:  present
+
+- name: node | update nvm
+  command: 'cd ~/.nvm && git checkout `git describe --abbrev=0 --tags`'
 
 - name: node | install node
   command: 'nvm install {{ nodejs.version }}'

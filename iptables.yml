@@ -8,7 +8,7 @@
 
 - name: iptables | copy iptables file
   copy:
-    src:   iptables/iptables
+    src:   '{{ role_path }}/files/iptables/iptables'
     dest:  '/etc/sysconfig/iptables'
     owner: root
     group: root

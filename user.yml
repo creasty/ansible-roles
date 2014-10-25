@@ -9,11 +9,11 @@
     user: '{{ user.name }}'
     key:  '{{ item }}'
   with_file:
-    - 'user/{{ user.authorized_key }}.pub'
+    - '{{ role_path }}/files/user/{{ user.authorized_key }}.pub'
 
 - name: user | copy id_rsa
   copy:
-    src:  'user/{{ user.id_rsa }}'
+    src:  '{{ role_path }}/files/user/{{ user.id_rsa }}'
     dest: '{{ user.path }}/.ssh/id_rsa'
     mode: 0600
 

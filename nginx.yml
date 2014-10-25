@@ -20,7 +20,7 @@
     owner: '{{ user.name }}'
     group: '{{ user.name }}'
   with_fileglob:
-    - 'files/nginx/shared/*'
+    - '{{ role_path }}/files/nginx/shared/*'
 
 - name: nginx | copy nginx.conf
   template:
@@ -32,7 +32,7 @@
     src:  '{{ item }}'
     dest: /etc/nginx/conf.d/
   with_fileglob:
-    - 'templates/nginx/conf.d/*.conf'
+    - '{{ role_path }}/templates/nginx/conf.d/*.conf'
 
 - name: nginx | start nginx service
   service:

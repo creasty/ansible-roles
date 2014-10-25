@@ -1,12 +1,8 @@
-- name: node | activate nvm
-  lineinfile:
-    dest:   '{{ item }}/.bashrc'
-    regexp: 'nvm/nvm\.sh'
-    line:   'source /usr/local/nvm/nvm.sh'
-    state:  present
-  with_items:
-    - '{{ user.path }}'
-    - '~'
+- name: node | install nvm
+  git:
+    repo:   https://github.com/creationix/nvm.git
+    dest:   '/usr/local/nvm'
+    update: yes
 
 - name: node | copy nvm initialize script
   copy:

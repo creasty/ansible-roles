@@ -1,7 +1,7 @@
 - name: node | install nvm
   git:
     repo:    https://github.com/creationix/nvm.git
-    dest:    '/usr/local/nvm-repo'
+    dest:    '/opt/nvm'
     version: v0.17.3
 
 - name: node | create directory
@@ -24,9 +24,10 @@
     mode:  0755
 
 - name: node | install node
-  command: 'nvm install {{ nodejs.version }}'
+  command: bash -lc 'nvm install {{ nodejs.version }}'
+
+- name: node | use version
+  command: bash -lc 'nvm use {{ nodejs.version }}'
 
 - name: node | set default version
-  command: >
-    nvm alias default {{ nodejs.version }}
-    nvm use {{ nodejs.version }}
+  command: bash -lc 'nvm alias default {{ nodejs.version }}'

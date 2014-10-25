@@ -6,14 +6,11 @@
     version:        v0.4.0
 
 - name: ruby | create symlink to the excutable file
-  file:
-    path:  /usr/local/bin/rbenv
-    src:   /usr/local/rbenv/bin/rbenv
-    state: link
+  command: ln -sf /usr/local/bin/rbenv /usr/local/rbenv/bin/rbenv
 
 - name: ruby | copy initialize script
   copy:
-    src:   '{{ assets_path }}/files/hosts/rbenv.sh'
+    src:   '{{ common_path }}/files/ruby/rbenv.sh'
     dest:  /etc/profile.d/rbenv.sh
     owner: root
     group: root

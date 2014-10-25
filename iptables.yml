@@ -8,7 +8,7 @@
 
 - name: iptables | copy iptables file
   copy:
-    src:   '{{ assets_path }}/templates/iptables/iptables'
+    src:   iptables/iptables
     dest:  '/etc/sysconfig/iptables'
     owner: root
     group: root

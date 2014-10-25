@@ -1,6 +1,6 @@
 - name: ssh | copy sshd_config
   template:
-    src:  ssh/sshd_config
+    src:  '{{ common_path }}/template/ssh/sshd_config'
     dest: /etc/ssh/sshd_config
 
 - name: ssh | start ssh service

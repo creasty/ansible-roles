@@ -5,12 +5,12 @@
 
 - name: ntp | copy ntp.conf
   copy:
-    src:  ntp/ntp.conf
+    src:  '{{ common_path }}/files/ntp/ntp.conf'
     dest: /etc/ntp.conf
 
 - name: ntp | copy timezone
   copy:
-    src:  ntp/timezone
+    src:  '{{ common_path }}/files/ntp/timezone'
     dest: /etc/timezone
 
 - name: ntp | set localtime

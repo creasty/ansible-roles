@@ -9,17 +9,17 @@
     user: '{{ user.name }}'
     key:  '{{ item }}'
   with_file:
-    - '{{ loop_assets_path }}/files/user/{{ user.authorized_key }}.pub'
+    - 'user/{{ user.authorized_key }}.pub'
 
 - name: user | copy id_rsa
   copy:
-    src:  '{{ assets_path }}/files/user/{{ user.id_rsa }}'
+    src:  'user/{{ user.id_rsa }}'
     dest: '{{ user.path }}/.ssh/id_rsa'
     mode: 0600
 
 - name: user | copy the user's sudoers
   template:
-    src:   user/sudoer
+    src:   '{{ common_path }}/templates/user/sudoer'
     dest:  '/etc/sudoers.d/{{ user.name }}'
     owner: root
     group: root

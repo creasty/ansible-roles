@@ -1,6 +1,6 @@
 - name: fluentd | add rpm repository
   copy:
-    src:   fluentd/treasuredata.repo
+    src:   '{{ common_path }}/files/fluentd/treasuredata.repo'
     dest:  /etc/yum.repos.d/treasuredata.repo
     user:  root
     group: root

@@ -20,11 +20,11 @@
     owner: '{{ user.name }}'
     group: '{{ user.name }}'
   with_fileglob:
-    - '{{ loop_assets_path }}/files/nginx/shared/*'
+    - 'files/nginx/shared/*'
 
 - name: nginx | copy nginx.conf
   template:
-    src:  nginx/nginx.conf
+    src:  '{{ common_path }}/templates/nginx/nginx.conf'
     dest: /etc/nginx/nginx.conf
 
 - name: nginx | copy application specific configuration files
@@ -32,7 +32,7 @@
     src:  '{{ item }}'
     dest: /etc/nginx/conf.d/
   with_fileglob:
-    - '{{ loop_assets_path }}/templates/nginx/conf.d/*.conf'
+    - 'templates/nginx/conf.d/*.conf'
 
 - name: nginx | start nginx service
   service:

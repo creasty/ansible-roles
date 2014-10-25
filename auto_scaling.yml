@@ -1,6 +1,6 @@
 - name: auto_scaling | copy init_script
   template:
-    src:   auto_scaling/init_script
+    src:   '{{ common_path }}/templates/auto_scaling/init_script'
     dest:  /etc/init.d/auto_scaling
     owner: root
     group: root

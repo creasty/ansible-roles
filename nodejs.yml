@@ -2,7 +2,7 @@
   git:
     repo:    https://github.com/creationix/nvm.git
     dest:    '/opt/nvm'
-    version: v0.17.3
+    version: 'v{{ nodejs.nvm_version }}'
 
 - name: node | create directory
   file:

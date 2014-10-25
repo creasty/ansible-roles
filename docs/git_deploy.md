@@ -4,8 +4,9 @@ Role: git_deploy
 Excerpt
 -------
 
-- create directory
-- create shared repo
+- create shared repository directory
+- create current directory
+- initialize shared repository
 - copy post-receive hook
 
 
@@ -23,3 +24,4 @@ Dependencies
 ------------
 
 - app
+- user

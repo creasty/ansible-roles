@@ -10,13 +10,17 @@
 
 - name: git_deploy | change permission of shared repository
   file:
-    path:  '{{ app.path }}.git'
-    owner: '{{ user.name }}'
-    group: '{{ user.name }}'
+    path:    '{{ app.path }}.git'
+    owner:   '{{ user.name }}'
+    group:   '{{ user.name }}'
     recurse: yes
-    state: directory
+    state:   directory
 
 - name: git_deploy | copy post-receive hook
   template:
-    src:  '{{ common_path }}/templates/git_deploy/post-receive'
-    dest: '{{ app.path }}.git/hooks/post-receive'
+    src:   '{{ common_path }}/templates/git_deploy/post-receive'
+    dest:  '{{ app.path }}.git/hooks/post-receive'
+    owner: '{{ user.name }}'
+    group: '{{ user.name }}'
+    mode:  0755
+

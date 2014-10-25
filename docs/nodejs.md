@@ -4,5 +4,5 @@ Role: nodejs
 Excerpt
 -------
 
-- install nodejs package
-
+- install nvm
+- install node

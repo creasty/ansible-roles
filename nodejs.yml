@@ -1,14 +1,16 @@
-- name: nodejs | install nodejs package
-  yum:
-    name:  '{{ item }}'
-    state: present
-  with_items:
-    - http://ftp.riken.jp/Linux/fedora/epel/6/x86_64/epel-release-6-8.noarch.rpm
-    - nodejs
+# - name: nodejs | install nodejs package
+#   yum:
+#     name:  '{{ item }}'
+#     state: present
+#   with_items:
+#     - http://ftp.riken.jp/Linux/fedora/epel/6/x86_64/epel-release-6-8.noarch.rpm
+#     - nodejs
 
-# - name: nodejs | start nodejs service
-#   service:
-#     name:    nodejs
-#     enabled: yes
-#     state:   restarted
+- name: node | install nvm
+  shell: wget -qO- https://raw.githubusercontent.com/creationix/nvm/v0.17.3/install.sh | bash
 
+- name: node | install node
+  shell: nvm install {{ node.version }}
+
+- name: node | declare node version
+  shell: nvm use {{ node.version }}

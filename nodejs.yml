@@ -6,10 +6,11 @@
 
 - name: node | create directory
   file:
-    path: '/usr/local/{{ item }}'
+    path:  '/usr/local/{{ item }}'
+    state: directory
     owner: root
     group: wheel
-    mode: 0775
+    mode:  0775
   with_items:
     - nvm
     - node

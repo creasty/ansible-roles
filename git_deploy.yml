@@ -18,4 +18,4 @@
 - name: git_deploy | copy post-receive hook
   template:
     src:  '{{ common_path }}/templates/git_deploy/post-receive'
-    dest: '{{ app.path }}/repo/hooks/post-receive'
+    dest: '{{ app.path }}.git/hooks/post-receive'

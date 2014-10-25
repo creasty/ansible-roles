@@ -1,8 +1,9 @@
 - name: node | install nvm
   git:
-    repo:    https://github.com/creationix/nvm.git
-    dest:    '/opt/nvm'
-    version: 'v{{ nodejs.nvm_version }}'
+    repo:           https://github.com/creationix/nvm.git
+    accept_hostkey: yes
+    dest:           '/opt/nvm'
+    version:        'v{{ nodejs.nvm_version }}'
 
 - name: node | create directory
   file:

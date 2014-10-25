@@ -1,9 +1,10 @@
 - name: git_deploy | create current directory
   git:
-    repo:    '{{ git_deploy.repository }}'
-    dest:    '{{ app.path }}/current'
-    version: '{{ git_deploy.branch }}'
-    update:  yes
+    repo:           '{{ git_deploy.repository }}'
+    accept_hostkey: yes
+    dest:           '{{ app.path }}/current'
+    version:        '{{ git_deploy.branch }}'
+    update:         yes
 
 - name: git_deploy | change permission of current directory
   file:

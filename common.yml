@@ -11,7 +11,8 @@
     - make
     - zlib-devel
     - curl-devel
-    - libcurl4-openssl-dev
+    - openssl
+    - openssl-devel
     - git
     - vim
     - wget

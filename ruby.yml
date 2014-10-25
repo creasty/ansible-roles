@@ -1,12 +1,17 @@
+- name: ruby | install yum packages
+  yum:
+    pkg:   '{{ item }}'
+    state: present
+  with_items:
+    - libyaml-devel
+    - readline-devel
+
 - name: ruby | download rbenv
   git:
     repo:           git://github.com/sstephenson/rbenv.git
     accept_hostkey: yes
     dest:           /usr/local/rbenv
     version:        'v{{ ruby.rbenv_version }}'
-
-- name: ruby | create symlink to the excutable file
-  command: ln -sf /usr/local/bin/rbenv /usr/local/rbenv/bin/rbenv
 
 - name: ruby | copy initialize script
   copy:
@@ -22,43 +27,45 @@
   ignore_errors: yes
 
 - name: ruby | create a temporary directory
+  when:     rbuild_present|failed
   command:  mktemp -d
   register: tempdir
-  when:     rbuild_present|failed
 
 - name: ruby | download ruby-build
+  when: rbuild_present|failed
   git:
     repo: git://github.com/sstephenson/ruby-build.git
     dest: '{{ tempdir.stdout }}/ruby-build'
-  when: rbuild_present|failed
 
 - name: ruby | install ruby-build
-  command: ./install.sh chdir={{ tempdir.stdout }}/ruby-build
-  when:    rbuild_present|failed
+  when: rbuild_present|failed
+  command: >
+    cd {{ tempdir.stdout }}/ruby-build
+    ./install.sh chdir={{ tempdir.stdout }}/ruby-build'
 
 - name: ruby | remove temporary directory
+  when: rbuild_present|failed
   file:
     path:  '{{ tempdir.stdout }}'
     state: absent
-  when: rbuild_present|failed
 
 - name: ruby | check if ruby is installed
-  shell:         RBENV_ROOT=/usr/local/rbenv rbenv versions | grep {{ ruby.version }}
+  command:       bash -lc 'rbenv versions | grep {{ ruby.version }}'
   register:      ruby_installed
   ignore_errors: yes
 
 - name: ruby | install ruby
-  shell: RBENV_ROOT=/usr/local/rbenv rbenv install {{ ruby.version }}
-  when:  ruby_installed|failed
+  when:    ruby_installed|failed
+  command: bash -lc 'rbenv install {{ ruby.version }}'
 
 - name: ruby | set global version of ruby to {{ ruby.version }}
-  shell: RBENV_ROOT=/usr/local/rbenv rbenv global {{ ruby.version }}
-  when:  ruby_installed|failed
+  when:    ruby_installed|failed
+  command: bash -lc 'rbenv global {{ ruby.version }}'
 
 - name: ruby | exec rehash
-  shell: RBENV_ROOT=/usr/local/rbenv rbenv rehash
-  when:  ruby_installed|failed
+  when:    ruby_installed|failed
+  command: bash -lc 'rbenv rehash'
 
 - name: ruby | install bundler
-  shell: RBENV_ROOT=/usr/local/rbenv rbenv exec gem install bundle --no-ri --no-rdoc
+  command: bash -lc 'rbenv exec gem install bundle --no-ri --no-rdoc'
 

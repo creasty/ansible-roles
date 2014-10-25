@@ -4,9 +4,9 @@ Role: git_deploy
 Excerpt
 -------
 
-- create shared repository directory
 - create current directory
-- initialize shared repository
+- create shared repository
+- change permission of shared repository
 - copy post-receive hook
 
 

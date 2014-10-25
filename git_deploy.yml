@@ -6,9 +6,9 @@
     state: directory
 
 - name: git_deploy | create shared repo
-  command: git init --bare "{{ app.path }}/current"
+  command: 'git init --bare {{ app.path }}/current'
 
 - name: git_deploy | copy post-receive hook
   template:
     src:  git_deploy/pot-receive
-    dest: {{ app.path }}/current/hooks/pot-receive
+    dest: '{{ app.path }}/current/hooks/pot-receive'

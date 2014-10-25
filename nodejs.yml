@@ -1,26 +1,20 @@
-# - name: nodejs | install nodejs package
-#   yum:
-#     name:  '{{ item }}'
-#     state: present
-#   with_items:
-#     - http://ftp.riken.jp/Linux/fedora/epel/6/x86_64/epel-release-6-8.noarch.rpm
-#     - nodejs
-
-- name: node | install nvm
-  git:
-    repo:   https://github.com/creationix/nvm.git
-    dest:   '{{ user.path }}/.nvm'
-    update: yes
-
 - name: node | activate nvm
   lineinfile:
-    dest:   '{{ user.path }}/.bashrc'
+    dest:   '{{ item }}/.bashrc'
     regexp: 'nvm/nvm\.sh'
-    line:   'source ~/.nvm/nvm.sh'
+    line:   'source /usr/local/nvm/nvm.sh'
     state:  present
+  with_items:
+    - '{{ user.path }}'
+    - '~'
 
-- name: node | update nvm
-  command: 'cd ~/.nvm && git checkout `git describe --abbrev=0 --tags`'
+- name: node | copy nvm initialize script
+  copy:
+    src:   '{{ common_path }}/files/nodejs/nvm.sh'
+    dest:  /etc/profile.d/nvm.sh
+    owner: root
+    group: root
+    mode:  0755
 
 - name: node | install node
   command: 'nvm install {{ nodejs.version }}'

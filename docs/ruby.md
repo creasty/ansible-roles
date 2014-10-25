@@ -18,6 +18,7 @@ Configuration
 
 ```yaml
 ruby:
-  version: 2.1.1
+  version:       2.1.1
+  rbenv_version: 0.4.0
 ```
 

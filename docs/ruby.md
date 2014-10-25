@@ -4,11 +4,15 @@ Role: ruby
 Excerpt
 -------
 
-- install rbenv
+- install yum packages
+- download rbenv
+- download rbenv gem rehash
+- change permission
 - copy initialize script
+- download ruby-build
 - install ruby-build
 - install ruby
-- set global version
+- set global version of ruby
 - exec rehash
 - install bundler
 

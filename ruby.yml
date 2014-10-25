@@ -13,6 +13,21 @@
     dest:           /usr/local/rbenv
     version:        'v{{ ruby.rbenv_version }}'
 
+- name: ruby | download rbenv gem rehash
+  git:
+    repo:           git://github.com/sstephenson/rbenv-gem-rehash.git
+    accept_hostkey: yes
+    dest:           /usr/local/rbenv/plugins/rbenv-gem-rehash
+
+- name: node | change permission
+  file:
+    path:    '/usr/local/rbenv'
+    state:   directory
+    owner:   root
+    group:   wheel
+    recurse: yes
+    mode:    0775
+
 - name: ruby | copy initialize script
   copy:
     src:   '{{ common_path }}/files/ruby/rbenv.sh'
@@ -39,9 +54,7 @@
 
 - name: ruby | install ruby-build
   when: rbuild_present|failed
-  command: >
-    cd {{ tempdir.stdout }}/ruby-build
-    ./install.sh chdir={{ tempdir.stdout }}/ruby-build'
+  command: './install.sh chdir={{ tempdir.stdout }}/ruby-build'
 
 - name: ruby | remove temporary directory
   when: rbuild_present|failed
@@ -50,15 +63,17 @@
     state: absent
 
 - name: ruby | check if ruby is installed
+  sudo:          false
   command:       bash -lc 'rbenv versions | grep {{ ruby.version }}'
   register:      ruby_installed
   ignore_errors: yes
 
 - name: ruby | install ruby
   when:    ruby_installed|failed
+  sudo:    false
   command: bash -lc 'rbenv install {{ ruby.version }}'
 
-- name: ruby | set global version of ruby to {{ ruby.version }}
+- name: ruby | set global version of ruby
   when:    ruby_installed|failed
   command: bash -lc 'rbenv global {{ ruby.version }}'
 
@@ -68,4 +83,3 @@
 
 - name: ruby | install bundler
   command: bash -lc 'rbenv exec gem install bundle --no-ri --no-rdoc'
-

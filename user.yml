@@ -1,8 +1,9 @@
 - name: user | create an user
   user:
-    name:  '{{ user.name }}'
-    home:  '{{ user.path }}'
-    shell: /bin/bash
+    name:   '{{ user.name }}'
+    home:   '{{ user.path }}'
+    groups: '{{ user.name }},wheel'
+    shell:  /bin/bash
 
 - name: user | setup authorized_key
   authorized_key:

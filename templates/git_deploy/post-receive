@@ -1,0 +1,8 @@
+#!/bin/bash
+
+cd {{ app.path }}/current
+
+git --git-dir=.git checkout {{ git_deploy.branch }}
+git --git-dir=.git pull origin {{ git_deploy.branch }}
+
+. {{ git_deploy.script }}

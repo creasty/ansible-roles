@@ -1,0 +1,14 @@
+- name: git_deploy | create directory
+  file:
+    path:  '{{ app.path }}/current'
+    owner: '{{ user.name }}'
+    group: '{{ user.name }}'
+    state: directory
+
+- name: git_deploy | create shared repo
+  command: git init --bare "{{ app.path }}/current"
+
+- name: git_deploy | copy post-receive hook
+  template:
+    src:  git_deploy/pot-receive
+    dest: {{ app.path }}/current/hooks/pot-receive

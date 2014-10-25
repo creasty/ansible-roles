@@ -1,9 +1,16 @@
 - name: git_deploy | create current directory
+  git:
+    repo:    '{{ git_deploy.repository }}'
+    dest:    '{{ app.path }}/current'
+    version: '{{ git_deploy.branch }}'
+    update:  yes
+
+- name: git_deploy | change permission of current directory
   file:
-    path:  '{{ app.path }}/current'
-    owner: '{{ user.name }}'
-    group: '{{ user.name }}'
-    state: directory
+    path:    '{{ git_deploy.repository }}'
+    owner:   '{{ user.name }}'
+    group:   '{{ user.name }}'
+    recurse: yes
 
 - name: git_deploy | create shared repository
   command: 'git init --bare {{ app.path }}.git'

@@ -19,8 +19,10 @@
 
 - name: user | copy id_rsa
   copy:
-    src:  '{{ role_path }}/files/user/{{ user.id_rsa }}'
-    dest: '{{ user.path }}/.ssh/id_rsa'
+    src:   '{{ role_path }}/files/user/{{ user.id_rsa }}'
+    dest:  '{{ user.path }}/.ssh/id_rsa'
+    owner: '{{ user.name }}'
+    group: '{{ user.name }}'
     mode: 0600
 
 - name: user | copy the user's sudoers

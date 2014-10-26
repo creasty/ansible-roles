@@ -1,5 +1,5 @@
 - name: backup | install backup gem
-  command: bash -lc 'gem install backup --no-ri --no-rdoc'
+  command: bash -lc 'rbenv exec gem install backup --no-ri --no-rdoc'
 
 - name: backup | create directory
   file:

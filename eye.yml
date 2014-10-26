@@ -1,0 +1,26 @@
+- name: eye | install eye
+  command: bash -lc 'rbenv exec gem install eye --no-ri --no-rdoc'
+
+- name: eye | create directory
+  file:
+    path: /etc/eye/apps
+    recurse: yes
+    owner: root
+    group: wheel
+    state: directory
+
+- name: eye | copy main configuration file
+  template:
+    src:  '{{ common_path }}/templates/eye/main.eye'
+    dest: /etc/eye/main.eye
+    owner: root
+    group: wheel
+
+- name: eye | copy application specific configuration files
+  template:
+    src:  '{{ item }}'
+    dest: /etc/eye/apps
+    owner: root
+    group: wheel
+  with_fileglob:
+    - '{{ role_path }}/templates/eye/*.eye'

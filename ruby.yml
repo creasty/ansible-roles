@@ -54,7 +54,9 @@
 
 - name: ruby | install ruby-build
   when: rbuild_present|failed
-  command: './install.sh chdir={{ tempdir.stdout }}/ruby-build'
+  command: ./install.sh
+  args:
+    chdir: '{{ tempdir.stdout }}/ruby-build'
 
 - name: ruby | remove temporary directory
   when: rbuild_present|failed

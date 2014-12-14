@@ -1,6 +1,6 @@
 - name: mysql | install mysql packages
   yum:
-    name:  $item
+    name:  '{{ item }}'
     state: present
   with_items:
     - http://repo.mysql.com/mysql-community-release-el6-4.noarch.rpm
@@ -41,7 +41,7 @@
 - name: mysql | change mysql root password for all hosts
   mysql_user:
     name:           root
-    host:           $item
+    host:           '{{ item }}"
     password:       '{{ mysql.root_password }}'
     login_user:     root
     login_password: '{{ mysql.root_password }}'
@@ -60,7 +60,7 @@
 - name: mysql | remove anonymous users
   mysql_user:
     name:  ''
-    host:  $item
+    host:  '{{ item }}'
     state: absent
   with_items:
     - localhost

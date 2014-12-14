@@ -41,7 +41,7 @@
 - name: mysql | change mysql root password for all hosts
   mysql_user:
     name:           root
-    host:           '{{ item }}"
+    host:           '{{ item }}'
     password:       '{{ mysql.root_password }}'
     login_user:     root
     login_password: '{{ mysql.root_password }}'

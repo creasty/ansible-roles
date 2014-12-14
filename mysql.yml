@@ -43,8 +43,8 @@
     name:           root
     host:           '{{ item }}'
     password:       '{{ mysql.root_password }}'
-    login_user:     root
-    login_password: '{{ mysql.root_password }}'
+    # login_user:     root
+    # login_password: '{{ mysql.root_password }}'
   with_items:
    - '{{ ansible_hostname }}'
    - 127.0.0.1

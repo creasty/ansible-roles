@@ -1,8 +1,7 @@
 - name: memcached | install yum package
   yum:
-    pkg:        memcached
-    enablerepo: remi
-    state:      present
+    pkg:   memcached
+    state: present
 
 - name: memcached | start memcached service
   service:

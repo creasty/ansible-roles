@@ -4,6 +4,7 @@
     state: present
   with_items:
     - libyaml-devel
+    - libffi-devel
     - readline-devel
 
 - name: ruby | download rbenv

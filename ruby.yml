@@ -42,7 +42,6 @@
   ignore_errors: yes
 
 - name: ruby | create a temporary directory
-  when:     rbuild_present|failed
   command:  mktemp -d
   register: tempdir
 
@@ -57,7 +56,6 @@
     chdir: '{{ tempdir.stdout }}/ruby-build'
 
 - name: ruby | remove temporary directory
-  when: rbuild_present|failed
   file:
     path:  '{{ tempdir.stdout }}'
     state: absent

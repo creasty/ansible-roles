@@ -73,12 +73,10 @@
   command: bash -lc 'rbenv install {{ ruby.version }}'
 
 - name: ruby | set global version of ruby
-  when:    ruby_installed|failed
   command: bash -lc 'rbenv global {{ ruby.version }}'
 
 - name: ruby | exec rehash
-  when:    ruby_installed|failed
   command: bash -lc 'rbenv rehash'
 
 - name: ruby | install bundler
-  command: bash -lc 'rbenv exec gem install bundle --no-ri --no-rdoc'
+  command: bash -lc 'rbenv exec gem install bundler --no-ri --no-rdoc'

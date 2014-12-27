@@ -33,4 +33,5 @@
     mode:  0600
 
 - name: swapfile | enable swap
-  shell: swapon /swapfile
+  when: ansible_swaptotal_mb < 2
+  command: swapon /swapfile

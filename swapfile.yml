@@ -32,3 +32,5 @@
     group: root
     mode:  0600
 
+- name: swapfile | enable swap
+  shell: swapon /swapfile

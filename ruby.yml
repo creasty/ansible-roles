@@ -47,13 +47,11 @@
   register: tempdir
 
 - name: ruby | download ruby-build
-  when: rbuild_present|failed
   git:
     repo: git://github.com/sstephenson/ruby-build.git
     dest: '{{ tempdir.stdout }}/ruby-build'
 
 - name: ruby | install ruby-build
-  when: rbuild_present|failed
   command: ./install.sh
   args:
     chdir: '{{ tempdir.stdout }}/ruby-build'

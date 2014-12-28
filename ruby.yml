@@ -37,11 +37,6 @@
     group: root
     mode:  0755
 
-- name: ruby | check if ruby-build is installed
-  command:       test -x /usr/local/bin/ruby-build
-  register:      rbuild_present
-  ignore_errors: yes
-
 - name: ruby | create a temporary directory
   command:  mktemp -d
   register: tempdir
@@ -63,7 +58,7 @@
 
 - name: ruby | check if ruby is installed
   sudo:          false
-  command:       bash -lc 'rbenv versions | grep {{ ruby.version }}'
+  command:       bash -lc 'rbenv versions | cut -c 3- | cut -d ' ' -f 1 | grep "^{{ ruby.version }}$"'
   register:      ruby_installed
   ignore_errors: yes
 

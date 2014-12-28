@@ -37,24 +37,15 @@
     group: root
     mode:  0755
 
-- name: ruby | create a temporary directory
-  command:  mktemp -d
-  register: tempdir
-
 - name: ruby | download ruby-build
   git:
     repo: git://github.com/sstephenson/ruby-build.git
-    dest: '{{ tempdir.stdout }}/ruby-build'
+    dest: /usr/local/rbenv/plugins/ruby-build
 
 - name: ruby | install ruby-build
   command: ./install.sh
   args:
-    chdir: '{{ tempdir.stdout }}/ruby-build'
-
-- name: ruby | remove temporary directory
-  file:
-    path:  '{{ tempdir.stdout }}'
-    state: absent
+    chdir: /usr/local/rbenv/plugins/ruby-build
 
 - name: ruby | check if ruby is installed
   sudo:          false

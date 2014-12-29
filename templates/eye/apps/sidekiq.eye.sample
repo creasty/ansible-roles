@@ -3,7 +3,7 @@ RAILS_ENV    = '{{ rails.env }}'
 APP_PATH     = '{{ app.path }}'
 CURRENT_PATH = "#{APP_PATH}/current"
 PIDS_PATH    = "#{APP_PATH}/shared/tmp/pids"
-CONFIG_PATH  = "#{APP_PATH}/config"
+CONFIG_PATH  = "#{CURRENT_PATH}/config"
 
 Eye.application :sidekiq do
   env 'RAILS_ENV' => RAILS_ENV

@@ -3,20 +3,19 @@ RAILS_ENV    = '{{ rails.env }}'
 APP_PATH     = '{{ app.path }}'
 CURRENT_PATH = "#{APP_PATH}/current"
 PIDS_PATH    = "#{APP_PATH}/shared/tmp/pids"
-CONFIG_PATH  = "#{APP_PATH}/config"
+CONFIG_PATH  = "#{CURRENT_PATH}/config"
 
 Eye.application :delayed_job do
   env 'RAILS_ENV' => RAILS_ENV
   env 'PATH' => "#{File.dirname(RUBY)}:#{ENV['PATH']}"
 
-  working_dir File.expand_path(File.join(CURRENT_PATH))
+  working_dir CURRENT_PATH
 
   process :delayed_job do
     pid_file "#{PIDS_PATH}/delayed_job.pid"
-    start_command "RAILS_ENV=#{RAILS_ENV} rbenv exec bundle exec bin/delayed_job restart"
+    start_command 'rbenv exec bundle exec bin/delayed_job restart'
     stdall 'log/delayed_job.log'
 
-    daemonize true
     stop_signals [:QUIT, 5.seconds, :TERM, 5.seconds, :KILL]
 
     check :cpu, every: 30, below: 100, times: 5

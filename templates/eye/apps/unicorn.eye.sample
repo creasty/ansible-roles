@@ -3,13 +3,13 @@ RAILS_ENV    = '{{ rails.env }}'
 APP_PATH     = '{{ app.path }}'
 CURRENT_PATH = "#{APP_PATH}/current"
 PIDS_PATH    = "#{APP_PATH}/shared/tmp/pids"
-CONFIG_PATH  = "#{APP_PATH}/config"
+CONFIG_PATH  = "#{CURRENT_PATH}/config"
 
 Eye.application :unicorn do
   env 'RAILS_ENV' => RAILS_ENV
   env 'PATH' => "#{File.dirname(RUBY)}:#{ENV['PATH']}"
 
-  working_dir File.expand_path(File.join(CURRENT_PATH))
+  working_dir CURRENT_PATH
 
   process :unicorn do
     pid_file "#{PIDS_PATH}/unicorn.pid"
@@ -23,8 +23,8 @@ Eye.application :unicorn do
     # soft restart
     restart_command 'kill -USR2 {PID}'
 
-    check :cpu, every: 30, below: 80, times: 3
-    check :memory, every: 30, below: 150.megabytes, times: [3, 5]
+    check :cpu, every: 30.seconds, below: 80, times: 3
+    check :memory, every: 30.seconds, below: 150.megabytes, times: [3, 5]
 
     start_timeout 100.seconds
     restart_grace 30.seconds

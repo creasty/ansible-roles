@@ -35,7 +35,10 @@ case "$1" in
     execute stop all
     ;;
   restart)
-    execute restart all
+    # execute restart all
+    execute stop all > /dev/null 2>&1
+    execute load $CONFIG_FILE
+    execute start all
     ;;
   status)
     execute info

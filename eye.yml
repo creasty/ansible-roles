@@ -44,5 +44,8 @@
     group: root
     mode:  0440
 
-- name: eye | start eye
-  command: bash -lc 'rbenv exec eye load /etc/eye/main.eye'
+- name: eye | start eye service
+  service:
+    name:    eye
+    enabled: yes
+    state:   restarted

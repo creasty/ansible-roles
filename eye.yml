@@ -1,18 +1,21 @@
 - name: eye | install eye
-  command: bash -lc 'rbenv exec gem install eye --no-ri --no-rdoc'
+  command: bash -lc 'rbenv exec gem install {{ item }} --no-ri --no-rdoc'
+  with_items:
+    - eye
+    - watch
 
 - name: eye | create directory
   file:
-    path: /etc/eye/apps
+    path:    /etc/eye/apps
     recurse: yes
-    owner: root
-    group: wheel
-    state: directory
+    owner:   root
+    group:   wheel
+    state:   directory
 
 - name: eye | copy main configuration file
   template:
-    src:  '{{ common_path }}/templates/eye/main.eye'
-    dest: /etc/eye/main.eye
+    src:   '{{ common_path }}/templates/eye/main.eye'
+    dest:  /etc/eye/main.eye
     owner: root
     group: wheel
 
@@ -25,8 +28,21 @@
   with_fileglob:
     - '{{ role_path }}/templates/eye/apps/*.eye'
 
-- name: eye | quit
-  command: bash -lc 'rbenv exec eye quit'
+- name: eye | copy init_script
+  template:
+    src:   '{{ common_path }}/templates/eye/init_script'
+    dest:  '/etc/init.d/eye'
+    owner: '{{ user.name }}'
+    group: '{{ user.name }}'
+    mode:  0751
 
-- name: eye | load
+- name: eye | copy sudoers
+  template:
+    src:   '{{ common_path }}/templates/eye/sudoer'
+    dest:  '/etc/sudoers.d/{{ user.name }}_eye'
+    owner: root
+    group: root
+    mode:  0440
+
+- name: eye | start eye
   command: bash -lc 'rbenv exec eye load /etc/eye/main.eye'

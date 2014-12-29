@@ -8,7 +8,9 @@ Excerpt
 - create directory
 - copy main configuration file
 - copy application specific configuration files
-- load
+- copy init_script
+- copy sudoers
+- start eye
 
 
 Files

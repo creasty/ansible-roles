@@ -8,12 +8,13 @@ Excerpt
 - create directory
 - copy main configuration file
 - copy application specific configuration files
+- load
 
 
 Files
 -----
 
-- `/templates/eye/*.eye`: applicaion configuration files
+- `/templates/eye/apps/*.eye`: applicaion configuration files
 
 
 Dependencies

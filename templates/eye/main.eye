@@ -1,1 +1,1 @@
-Eye.load('./apps/*.eye')
+Eye.load './apps/*.eye'

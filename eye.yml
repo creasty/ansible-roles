@@ -25,5 +25,8 @@
   with_fileglob:
     - '{{ role_path }}/templates/eye/apps/*.eye'
 
+- name: eye | quit
+  command: bash -lc 'rbenv exec eye quit'
+
 - name: eye | load
   command: bash -lc 'rbenv exec eye load /etc/eye/main.eye'

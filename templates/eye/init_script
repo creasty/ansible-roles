@@ -29,13 +29,13 @@ case "$1" in
   start)
     echo -n "Loading eye configuration for $SERVICE_NAME"
     execute load $CONFIG_FILE
-    execute start
+    execute start all
     ;;
   stop)
-    execute stop
+    execute stop all
     ;;
   restart)
-    execute restart
+    execute restart all
     ;;
   status)
     execute info

@@ -1,2 +1,1 @@
-Cmnd_Alias CMDS = /etc/init.d/eye
-{{ user.name }}    ALL=(ALL:ALL) NOPASSWD: CMDS
+{{ user.name }}    ALL=(ALL:ALL) NOPASSWD: /etc/init.d/eye

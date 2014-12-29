@@ -1,18 +1,19 @@
-RUBY = '/usr/local/rbenv/shims/ruby'
-RAILS_ENV = '{{ rails.env }}'
-APP_ROOT = '{{ app.path }}/current'
+RUBY         = '/usr/local/rbenv/shims/ruby'
+RAILS_ENV    = '{{ rails.env }}'
+APP_PATH     = '{{ app.path }}'
+CURRENT_PATH = "#{APP_PATH}/current"
+PIDS_PATH    = "#{APP_PATH}/shared/tmp/pids"
+CONFIG_PATH  = "#{APP_PATH}/config"
 
 Eye.application :unicorn do
   env 'RAILS_ENV' => RAILS_ENV
-
-  # unicorn requires to be `ruby` in path (for soft restart)
   env 'PATH' => "#{File.dirname(RUBY)}:#{ENV['PATH']}"
 
-  working_dir File.expand_path(File.join(APP_ROOT))
+  working_dir File.expand_path(File.join(CURRENT_PATH))
 
-  process('unicorn') do
-    pid_file '{{ app.path }}/shared/pids/unicorn.pid'
-    start_command "rbenv exec bundle exec unicorn -D -c #{APP_ROOT}/config/unicorn.rb -E #{RAILS_ENV}"
+  process :unicorn do
+    pid_file "#{PIDS_PATH}/unicorn.pid"
+    start_command "rbenv exec bundle exec unicorn -D -c #{CONFIG_PATH}/unicorn.rb -E #{RAILS_ENV}"
     stdall 'log/unicorn.log'
 
     # stop signals:
@@ -23,7 +24,7 @@ Eye.application :unicorn do
     restart_command 'kill -USR2 {PID}'
 
     check :cpu, every: 30, below: 80, times: 3
-    check :memory, every: 30, below: 150.megabytes, times: [3,5]
+    check :memory, every: 30, below: 150.megabytes, times: [3, 5]
 
     start_timeout 100.seconds
     restart_grace 30.seconds
@@ -31,7 +32,7 @@ Eye.application :unicorn do
     monitor_children do
       stop_command 'kill -QUIT {PID}'
       check :cpu, every: 30, below: 80, times: 3
-      check :memory, every: 30, below: 150.megabytes, times: [3,5]
+      check :memory, every: 30, below: 150.megabytes, times: [3, 5]
     end
   end
 end

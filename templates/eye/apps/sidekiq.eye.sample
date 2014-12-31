@@ -9,7 +9,7 @@ Eye.application :sidekiq do
   env 'RAILS_ENV' => RAILS_ENV
   env 'PATH' => "#{File.dirname(RUBY)}:#{ENV['PATH']}"
 
-  working_dir File.expand_path(File.join(CURRENT_PATH))
+  working_dir CURRENT_PATH
 
   process :sidekiq do
     pid_file "#{PIDS_PATH}/sidekiq.pid"

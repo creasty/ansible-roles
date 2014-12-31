@@ -10,7 +10,7 @@ Excerpt
 - copy application specific configuration files
 - copy init_script
 - copy sudoers
-- start eye
+- start eye service
 
 
 Files
